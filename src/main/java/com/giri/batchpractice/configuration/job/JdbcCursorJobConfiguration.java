@@ -8,8 +8,10 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
+import org.springframework.batch.item.validator.BeanValidatingItemProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -40,11 +42,19 @@ public class JdbcCursorJobConfiguration {
         return stepBuilderFactory.get("jdbcCursorStep")
                 .<Order, Order>chunk(3)
                 .reader(jdbcCursorOrderItemReader())
+                .processor(orderValidatingItemProcessor())
                 .writer(items -> {
                     log.info("Received list size {}", items.size());
                     items.forEach(log::info);
                 })
                 .build();
+    }
+
+    @Bean
+    public ItemProcessor<Order, Order> orderValidatingItemProcessor() {
+        BeanValidatingItemProcessor<Order> itemProcessor = new BeanValidatingItemProcessor<>();
+        itemProcessor.setFilter(true);
+        return itemProcessor;
     }
 
     @Bean

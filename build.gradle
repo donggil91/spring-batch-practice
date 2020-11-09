@@ -28,6 +28,10 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-batch'
+    implementation 'org.hibernate:hibernate-validator:6.1.6.Final'
+    implementation 'javax.el:javax.el-api:3.0.0'
+    implementation 'org.glassfish.web:javax.el:2.2.6'
+    implementation 'org.glassfish.jaxb:jaxb-runtime'
     runtimeOnly 'mysql:mysql-connector-java'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
