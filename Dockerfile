@@ -1,5 +1,3 @@
-FROM gra
-
 FROM amazoncorretto:11
 WORKDIR /app
 ARG JAR_FILE=build/libs/*.jar
