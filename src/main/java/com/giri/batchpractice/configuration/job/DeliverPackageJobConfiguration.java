@@ -12,6 +12,7 @@ import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.flow.Flow;
 import org.springframework.batch.core.job.flow.JobExecutionDecider;
 import org.springframework.batch.core.job.flow.support.SimpleFlow;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -50,6 +51,7 @@ public class DeliverPackageJobConfiguration {
     @Bean
     public Job deliverPackageJob(){
         return jobBuilderFactory.get("deliverPackageJob")
+                .incrementer(new RunIdIncrementer())
                 .start(packageItemStep())
                 // parallel flows
                 .split(new SimpleAsyncTaskExecutor())
