@@ -43,10 +43,6 @@ public class PrepareFlowersJobConfiguration {
     public Step selectFlowersStep() {
         return stepBuilderFactory.get("selectFlowersStep").tasklet(((contribution, chunkContext) -> {
             log.info("Selecting flowers for order.");
-            for (int i = 0; i < 900; i++) {
-                Thread.sleep(1000);
-                log.info("{} second!", i+1);
-            }
             return RepeatStatus.FINISHED;
         })).listener(selectFlowerListener()).build();
     }
