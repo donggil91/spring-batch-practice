@@ -4,7 +4,7 @@ spring:
   batch:
     initialize-schema: always
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     username: batch_demo
     password: batch_demo
 
